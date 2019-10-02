@@ -1,0 +1,20 @@
+let mongoose = require('mongoose')
+
+
+let Schema = mongoose.Schema
+
+//Define Schema
+let MudFileSchema = new Schema({
+    file_name : {
+        type: String,
+        required: [true, 'The file must have a name!']
+    },
+
+    source: {
+        type: Buffer,
+        contentType: String
+    }
+})
+
+//Compile model from schema
+module.exports = mongoose.model('mudFileModel', MudFileSchema)

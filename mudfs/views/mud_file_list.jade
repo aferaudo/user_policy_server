@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  ul
+    
+    each mud_file in mud_file_list
+      li 
+        // TODO: insert in the db also the link tu the mudfile
+        h2 #[a(href="http://localhost:3000/mudfile/#{mud_file.file_name}") #{mud_file.file_name}]
+        p #{mud_file.source}
+    else
+      li Thre are no mudfiles in the db (be sure to populate it).
