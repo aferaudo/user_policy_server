@@ -8,9 +8,8 @@ block content
     
     each mud_file in mud_file_list
       li 
-        // TODO: insert in the db also the link tu the mudfile
         - var fileName = mud_file.file_name
-        h2 #[a(href="http://localhost:3000/mudfile/" + fileName) #{mud_file.file_name}]
-        p #{mud_file.source}
+        h2 #[a(href="https://www.mfs.example.com/mudfile/" + fileName + ".json") #{mud_file.file_name}]
+        p #{mud_file.source_file}
     else
       li Thre are no mudfiles in the db (be sure to populate it).

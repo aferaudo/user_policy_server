@@ -29,10 +29,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 console.log("here")
 function mudFileInsert(fileName){
-    let data = fs.readFileSync(fileName+".json")
-    mudFileDetail = {file_name: fileName, source: data}
+    let json_data = fs.readFileSync(fileName+".json")
+    mudFileDetail = {file_name: fileName, source_file: json_data}
     let toInsert = new mudFile(mudFileDetail)
-    toInsert.contentType = 'json'
 
     toInsert.save(function(err, toInsert){
         if(err) throw err;
@@ -66,7 +65,7 @@ function mudFileRemove(id){
 
 db.on('open', function(){
     console.log("connection with mongoose is open")
-    mudFileInsert("Luminaire_1501")
+    mudFileInsert("Luminaire_150")
     //mudFileRemove("Luminaire_150")
    
 })

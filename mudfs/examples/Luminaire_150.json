@@ -1,7 +1,7 @@
 {
     "ietf-mud:mud": {
       "mud-version": 1,
-      "mud-url": "https://luminaire.example.com/Luminaire_150",
+      "mud-url": "https://www.mfs.example.com/mudfile/Luminaire_150",
       "last-update": "2018-06-29T19:50:19+02:00",
       "cache-validity": 48,
       "is-supported": true,
@@ -36,7 +36,7 @@
                 "name": "cl0-todev",
                 "matches": {
                   "ipv4": {
-                    "ietf-acldns:src-dnsname": "fw-update.luminaire.example.com",
+                    "ietf-acldns:src-dnsname": "fw-update.mfs.example.com",
                     "protocol": 6
                   },
                   "tcp": {
@@ -107,7 +107,7 @@
                 "name": "cl0-frdev",
                 "matches": {
                   "ipv4": {
-                    "ietf-acldns:dst-dnsname": "fw-update.luminaire.example.com",
+                    "ietf-acldns:dst-dnsname": "fw-update.mfs.example.com",
                     "protocol": 6
                   },
                   "tcp": {

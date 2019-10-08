@@ -10,7 +10,12 @@ let MudFileSchema = new Schema({
         required: [true, 'The file must have a name!']
     },
 
-    source: {
+    source_file: {
+        type: Buffer,
+        contentType: String
+    },
+
+    source_signed:{
         type: Buffer,
         contentType: String
     }
