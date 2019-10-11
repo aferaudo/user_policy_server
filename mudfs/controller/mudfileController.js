@@ -1,6 +1,7 @@
 let MudFile = require("../models/mudFileModel") //required in order to access to the data
 let db = require("./connect")
 let forge = require('node-forge');
+forge.options.usePureJavaScript = true;
 let fs = require('fs');
 
 
@@ -14,33 +15,34 @@ exports.mudFileByName = function(req, res, next){
         
         // create PKCS#7 signed data with authenticatedAttributes
         // attributes include: PKCS#9 content-type, message-digest, and signing-time
-        var p7 = forge.pkcs7.createSignedData();
-        p7.content = forge.util.createBuffer(JSON.parse(result.source_file), 'json');
-        var cert = forge.pki.certificateFromPem(fs.readFileSync('certs/cert.pem'));
-        p7.addCertificate(cert);
+        // var p7 = forge.pkcs7.createSignedData();
+        // p7.content = forge.util.createBuffer(JSON.parse(result.source_file), 'json');
+        // var cert = forge.pki.certificateFromPem(fs.readFileSync('certs/mfs.example.com.pem'));
+        // p7.addCertificate(cert);
         
-        p7.addSigner({
-          key: forge.pki.privateKeyFromPem(fs.readFileSync('certs/key.pem')),
-          certificate: cert,
-          digestAlgorithm: forge.pki.oids.sha256,
-          authenticatedAttributes: [{
-            type: forge.pki.oids.contentType,
-            value: forge.pki.oids.data
-          }, {
-            type: forge.pki.oids.messageDigest
-            // value will be auto-populated at signing time
-          }, {
-            type: forge.pki.oids.signingTime,
-            // will be encoded as generalized time because it's before 1950
-            value: new Date()
-          }]
-        });
-        p7.sign();
-        var pem = forge.pkcs7.messageToPem(p7);
-
+        // p7.addSigner({
+        //   key: forge.pki.privateKeyFromPem(fs.readFileSync('certs/server.key.pem')),
+        //   certificate: cert,
+        //   digestAlgorithm: forge.pki.oids.sha256,
+        //   authenticatedAttributes: [{
+        //     type: forge.pki.oids.contentType,
+        //     value: forge.pki.oids.data
+        //   }, {
+        //     type: forge.pki.oids.messageDigest
+        //     // value will be auto-populated at signing time
+        //   }, {
+        //     type: forge.pki.oids.signingTime,
+        //     // will be encoded as generalized time because it's before 1950
+        //     value: new Date()
+        //   }]
+        // });
+        // p7.sign();
+        // var pem = forge.pkcs7.messageToPem(p7);
+        // //var der = forge.asn1.toDer(p7.toAsn1());
+        var p7sFile = fs.readFileSync('certs/Luminaire_150.p7s')
         console.log(result)
         res.setHeader('Content-Type', 'application/pkcs7-signature')
-        res.send(pem)
+        res.send(p7sFile)
       });
     }else{
       //Display the json of the MudFile requested

@@ -13,11 +13,6 @@ let MudFileSchema = new Schema({
     source_file: {
         type: Buffer,
         contentType: String
-    },
-
-    source_signed:{
-        type: Buffer,
-        contentType: String
     }
 })
 
