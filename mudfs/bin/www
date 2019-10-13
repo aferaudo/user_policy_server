@@ -11,9 +11,10 @@ const https = require('https');
 const fs = require('fs');
 
 // readFileSync is good for our situation
+// CHANGE THIS PARAMETER!
 const options = {
   key: fs.readFileSync('certs/server.key.pem'),
-  cert: fs.readFileSync('certs/mfs.example.com.pem')
+  cert: fs.readFileSync('certs/server.pem')
 }
 /**
  * Get port from environment and store in Express.
@@ -21,12 +22,6 @@ const options = {
 let port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- 
-
-let server = http.createServer(app);
-*/
 
 /** 
  * Create HTTPS server

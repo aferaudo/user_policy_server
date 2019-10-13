@@ -2,3 +2,7 @@
 .DS_Store
 
 mudfs/certs/
+
+mudfs/script/*.json
+
+mudfs/script/*.p7s

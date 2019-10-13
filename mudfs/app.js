@@ -3,11 +3,25 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+const fs = require('fs')
 
 let indexRouter = require('./routes/index');
 let mudFileRouter = require('./routes/mudfile');
 
 let app = express();
+
+//Each time that the server is started we need to delete all the file in the directory script (because they could be out of date)
+var directory = "script"
+fs.readdir(directory, (err, files) => {
+  if (err) throw err;
+
+  for (const file of files) {
+    if(file.endsWith('.json') || file.endsWith('.p7s'))
+    fs.unlink(path.join(directory, file), err => {
+      if (err) throw err;
+    });
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
