@@ -27,8 +27,8 @@ mongoose.Promise = global.Promise
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-console.log("here")
-function mudFileInsert(fileName){
+// Insert a file with a specific name in the directory
+function mudFileInsertByFileName(fileName){
     let json_data = fs.readFileSync(fileName+".json")
     mudFileDetail = {file_name: fileName, source_file: json_data}
     let toInsert = new mudFile(mudFileDetail)
@@ -39,21 +39,25 @@ function mudFileInsert(fileName){
     })
 }
 
-function mudFileFind(fileName){
-    /*
-    async.parallel({
-        result: function(callback) {
-            mudFile.findOne({'file_name': fileName})
-              .exec(callback)
-        }, function(err, results) {
-            if (err) { return next(err); } // Error in API usage.
-            if (results.author==null) { // No results.
-                var err = new Error('Author not found');
-                err.status = 404;
-                return next(err);
-            }
+
+// Insert all the files present in the specified directory
+function mudFileInsertByDirectory(directory){
+    fs.readdir(directory, (err, files) => {
+    if (err) throw err;
+
+    for (const file of files) {
+        if(file.endsWith('.json')){
+            let json_data = fs.readFileSync(file)
+            mudFileDetail = {file_name: file.substring(0, file.length-5), source_file: json_data}
+            let toInsert = new mudFile(mudFileDetail)
+
+            toInsert.save(function(err, toInsert){
+                if(err) throw err;
+                console.error('saved file to mongo')
+            })
         }
-    })*/ 
+    }
+    });
 }
 
 function mudFileRemove(id){
@@ -65,7 +69,6 @@ function mudFileRemove(id){
 
 db.on('open', function(){
     console.log("connection with mongoose is open")
-    mudFileInsert("Luminaire_150")
-    //mudFileRemove("Luminaire_150")
-   
+    
+   mudFileInsertByDirectory('.'); //change with the absolute path of your directory
 })

@@ -1,9 +1,9 @@
-let MudFile = require("../models/mudFileModel") //required in order to access to the data
-let db = require("./connect")
+const MudFile = require("../models/mudFileModel") //required in order to access to the data
+const db = require("./connect")
 const shell = require('shelljs')
 //let forge = require('node-forge');
 //forge.options.usePureJavaScript = true;
-let fs = require('fs');
+const fs = require('fs');
 
 
 exports.mudFileByName = function(req, res, next){
@@ -34,9 +34,8 @@ exports.mudFileByName = function(req, res, next){
         if (result === null) {return next(err);}
         //Successful, so render
         console.log(result)
-        res
-        //res.render('mud_file', {mud_file: JSON.parse(result.source_file)})
-        res.send(JSON.parse(result.source_file))
+        res.setHeader('Content-Type', 'application/json')
+        res.send(result.source_file.toString())
       });
     }
 };
