@@ -34,8 +34,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // This is typically use to serve all the static files int he /public directory
 
 // The imported code will define particular routes for the different parts of the site
-app.use('/', indexRouter);
-app.use('/mudfile', mudFileRouter);
+app.use('/info', indexRouter);
+app.use('/', mudFileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

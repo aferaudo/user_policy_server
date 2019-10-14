@@ -13,10 +13,12 @@ MUD_FILE_P7S=$(echo $MUD_FILE | awk -F "." '{print $1".p7s"}')
 # For example I have two different path with linux and with MacOs
 
 # MacOS
-/usr/local/ssl/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -outform DER -out $MUD_FILE_P7S
+/usr/local/ssl/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -binary -outform DER -binary -out $MUD_FILE_P7S
 
 #Linux
-#/usr/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -outform DER -out $MUD_FILE_P7S
+#/usr/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -binary -outform DER -binary -out $MUD_FILE_P7S
 
 # N.B. If you use an intermediate certificate, you can specify it by using the option -certfile. So, the command become the following:
 # openssl cms -sign -signer ../certs/server.pem -inkey ../certs/server.key -in $MUD_FILE -outform DER -certfile intermediatecert -out $MUD_FILE_P7S
+
+# It's possible that you will have some problems related to the format. In this case try to remove the the option -binary
