@@ -35,7 +35,7 @@ function mudFileInsertByFileName(fileName){
 
     toInsert.save(function(err, toInsert){
         if(err) throw err;
-        console.error('saved file to mongo')
+        console.log('saved file to mongo')
     })
 }
 
@@ -50,10 +50,9 @@ function mudFileInsertByDirectory(directory){
             let json_data = fs.readFileSync(file)
             mudFileDetail = {file_name: file.substring(0, file.length-5), source_file: json_data}
             let toInsert = new mudFile(mudFileDetail)
-
             toInsert.save(function(err, toInsert){
                 if(err) throw err;
-                console.error('saved file to mongo')
+                console.log('saved file to mongo')
             })
         }
     }
@@ -69,6 +68,6 @@ function mudFileRemove(id){
 
 db.on('open', function(){
     console.log("connection with mongoose is open")
-    
-   mudFileInsertByDirectory('.'); //change with the absolute path of your directory
+    //mudFileInsertByFileName('Luminaire_150Testing') 
+    mudFileInsertByDirectory('.'); //change with the absolute path of your directory
 })

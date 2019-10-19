@@ -1,0 +1,174 @@
+{
+    "ietf-mud:mud": {
+    "mud-version": 1,
+    "mud-url": "https://mudfileserver/testmud",
+    "last-update": "2018-07-18T17:09:38+02:00",
+    "cache-validity": 48,
+    "is-supported": true,
+    "systeminfo": "This is a test device!",
+    "from-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "name": "mud-79002-v4fr"
+          }
+        ]
+      }
+    },
+    "to-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "name": "mud-79002-v4to"
+          }
+        ]
+      }
+    }
+  },
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "mud-79002-v4to",
+        "type": "ipv4-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "cl0-todev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:src-dnsname": "v2.broker.device.co",
+                  "protocol": 6
+                },
+                "tcp": {
+                  "ietf-mud:direction-initiated": "from-device",
+                  "source-port": {
+                    "operator": "eq",
+                    "port": 443
+                  },
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 443
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "cl1-todev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:src-dnsname": "dns.google.com",
+                  "protocol": 17
+                },
+                "udp": {
+                  "source-port": {
+                    "operator": "eq",
+                    "port": 53
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "cl2-todev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:src-dnsname": "cloud.device.com",
+                  "protocol": 6
+                },
+                "tcp": {
+                  "source-port": {
+                    "operator": "eq",
+                    "port": 443
+                  },
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 443
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mud-79002-v4fr",
+        "type": "ipv4-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "cl0-frdev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:dst-dnsname": "v2.broker.device.co",
+                  "protocol": 6
+                },
+                "tcp": {
+                  "ietf-mud:direction-initiated": "from-device",
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 443
+                  },
+                  "source-port": {
+                    "operator": "eq",
+                    "port": 443
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "cl1-frdev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:dst-dnsname": "dns.google.com",
+                  "protocol": 17
+                },
+                "udp": {
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 53
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "cl2-frdev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:dst-dnsname": "cloud.device.com",
+                  "protocol": 6
+                },
+                "tcp": {
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 443
+                  },
+                  "source-port": {
+                    "operator": "eq",
+                    "port": 443
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "ietf-mud:mud": {
+    "mud-version": 1,
+    "mud-url": "https://mudfiles.nist.getyikes.com/pi4fullMudExample.json",
+    "last-update": "2019-01-12T16:49:30+00:00",
+    "cache-validity": 48,
+    "is-supported": true,
+    "systeminfo": "Full Raspberry PI example",
+    "from-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "name": "mud-41359-v4fr"
+          }
+        ]
+      }
+    },
+    "to-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "name": "mud-41359-v4to"
+          }
+        ]
+      }
+    }
+  },
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "mud-41359-v4to",
+        "type": "ipv4-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "cl0-todev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:src-dnsname": "www.osmud.org",
+                  "protocol": 6
+                },
+                "tcp": {
+                  "ietf-mud:direction-initiated": "from-device"
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "ent0-todev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "controller": "https://mudfiles.nist.getyikes.com"
+                },
+                "ipv4": {
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "myctl0-todev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "my-controller": [
+                    null
+                  ]
+                },
+                "ipv4": {
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "loc0-todev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "local-networks": [
+                    null
+                  ]
+                },
+                "ipv4": {
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "man0-todev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "manufacturer": "mudfiles.nist.getyikes.com"
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "myman0-todev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "same-manufacturer": [
+                    null
+                  ]
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mud-41359-v4fr",
+        "type": "ipv4-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "cl0-frdev",
+              "matches": {
+                "ipv4": {
+                  "ietf-acldns:dst-dnsname": "www.osmud.org",
+                  "protocol": 6
+                },
+                "tcp": {
+                  "ietf-mud:direction-initiated": "from-device"
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "ent0-frdev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "controller": "https://mudfiles.nist.getyikes.com"
+                },
+                "ipv4": {
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "myctl0-frdev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "my-controller": [
+                    null
+                  ]
+                },
+                "ipv4": {
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "loc0-frdev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "local-networks": [
+                    null
+                  ]
+                },
+                "ipv4": {
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "man0-frdev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "manufacturer": "mudfiles.nist.getyikes.com"
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "name": "myman0-frdev",
+              "matches": {
+                "ietf-mud:mud": {
+                  "same-manufacturer": [
+                    null
+                  ]
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

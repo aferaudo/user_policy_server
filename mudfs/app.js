@@ -3,10 +3,12 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-const fs = require('fs')
-
+let fs = require('fs');
 let indexRouter = require('./routes/index');
 let mudFileRouter = require('./routes/mudfile');
+let certificateRouter = require('./routes/certificate');
+let insertNewMudFileRouter = require('./routes/insertNewMudFile');
+
 
 let app = express();
 
@@ -14,7 +16,6 @@ let app = express();
 var directory = "script"
 fs.readdir(directory, (err, files) => {
   if (err) throw err;
-
   for (const file of files) {
     if(file.endsWith('.json') || file.endsWith('.p7s'))
     fs.unlink(path.join(directory, file), err => {
@@ -26,16 +27,19 @@ fs.readdir(directory, (err, files) => {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // This is typically use to serve all the static files int he /public directory
 
+
 // The imported code will define particular routes for the different parts of the site
 app.use('/info', indexRouter);
+app.use('/cert.pem', certificateRouter);
+app.use('/admin', insertNewMudFileRouter);
 app.use('/', mudFileRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

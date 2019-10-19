@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  p Administration page: #{title}
+  p Be sure that the name of the mudfile has the following format: MACADDRESS.json
+  form(action='/admin/upload' method='post', enctype='multipart/form-data')
+    input(type='file', name='mudFileUpload')
+    input(type='submit', name='uploadMudFile', value='Upload MudFile')
