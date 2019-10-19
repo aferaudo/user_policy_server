@@ -7,7 +7,7 @@ let fs = require('fs');
 let indexRouter = require('./routes/index');
 let mudFileRouter = require('./routes/mudfile');
 let certificateRouter = require('./routes/certificate');
-let insertNewMudFileRouter = require('./routes/insertNewMudFile');
+let adminFileRouter = require('./routes/adminMudFile');
 
 
 let app = express();
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // This is typically us
 // The imported code will define particular routes for the different parts of the site
 app.use('/info', indexRouter);
 app.use('/cert.pem', certificateRouter);
-app.use('/admin', insertNewMudFileRouter);
+app.use('/admin', adminFileRouter);
 app.use('/', mudFileRouter);
 
 

@@ -1,7 +1,16 @@
 let fs = require('fs')
 let MudFile = require("../models/mudFileModel")
 
+/* Initialization */
+exports.initial = function(req, res, next){
+    MudFile.find({}, 'file_name source_file')
+    .exec(function (err, list) {
+      if (err) { return next(err); }
+        res.render('admin', {title: 'Admin', mud_file_list: list})
+    });
+}
 
+/* Insertion of a mud file */
 exports.mudFileInsert = function(req,res){
     var path = req.file.path
     var fileName = req.file.originalname
@@ -23,7 +32,7 @@ exports.mudFileInsert = function(req,res){
                 toInsert.save(function(err, toInsert){
                     if(err) throw err;
                     console.log('saved file to mongo')
-                    res.send("File successfully updated!")
+                    res.redirect('back')
                 });
             }else
                 res.render('myerror',{message: 'File already in the db'})
@@ -33,5 +42,19 @@ exports.mudFileInsert = function(req,res){
     else{
         res.render('myerror',{message: 'Incorrect file name format!'})
     }
+}
+
+
+/* Delete a mud file by name */
+exports.deleteByName =  function(req,res){
+
+    var filename = req.body.filename
+    var query = {file_name: filename}
+
+    MudFile.deleteOne(query,function(err, obj) {
+        if (err) throw err;
+       
+        res.redirect('back')
+    })
 }
 

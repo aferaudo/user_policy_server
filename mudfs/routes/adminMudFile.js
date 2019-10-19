@@ -1,27 +1,19 @@
 var express = require('express');
 var router = express.Router();
 let multer = require('multer')
-let path = require('path')
-let fs = require('fs')
-var controller = require("../controller/insertController")
+var controller = require("../controller/adminController")
+//var mudController = require("../controller/mudfileController")
 const DIR = './admin'
 
-
-let storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, DIR);
-    },
-    filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
 
 let upload = multer({dest: '/upload'});
 
 /* Initial page to upload a mud file*/
 router.get('/', function(req, res, next) {
     console.log('request admin page')
-    res.render('admin', { title: 'Admin' });
+    //var list = mudController.mudFileListNoRend(next)
+    controller.initial(req,res, next);
+    
 });
 
 /* Post request for mudFile upload */
@@ -31,7 +23,13 @@ router.post('/upload', upload.single('mudFileUpload'),function(req, res, next) {
     }else
         controller.mudFileInsert(req, res)
         //res.send('File successfully updated')
-  });
+});
+
+router.post('/remove', function(req, res, next) {
+
+        console.log('File to delete ' + req.body.filename)
+        controller.deleteByName(req,res)
+});
 
 
 module.exports = router
