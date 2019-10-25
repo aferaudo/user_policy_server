@@ -10,9 +10,12 @@ let upload = multer({dest: '/upload'});
 
 /* Initial page to upload a mud file*/
 router.get('/', function(req, res, next) {
-    console.log('request admin page')
-    //var list = mudController.mudFileListNoRend(next)
-    controller.initial(req,res, next);
+    if(req.session.loggedin){
+        console.log('request admin page')
+        //var list = mudController.mudFileListNoRend(next)
+        controller.initial(req,res, next);
+    }else
+        res.redirect('/login')
     
 });
 

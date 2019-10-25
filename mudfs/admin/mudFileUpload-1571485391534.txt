@@ -1,5 +1,0 @@
-Test #1
-DEVICE:		Raspberry 3b +
-SERVER:		Local
-FILE SIZE:	2kb
-EXECUTION TIME:	

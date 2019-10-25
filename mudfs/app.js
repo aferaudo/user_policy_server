@@ -2,12 +2,16 @@ let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
+let session = require('express-session');
 let logger = require('morgan');
 let fs = require('fs');
 let indexRouter = require('./routes/index');
 let mudFileRouter = require('./routes/mudfile');
 let certificateRouter = require('./routes/certificate');
 let adminFileRouter = require('./routes/adminMudFile');
+let loginRouter = require('./routes/login');
+let regRouter = require('./routes/register');
+
 
 
 let app = express();
@@ -29,6 +33,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
+//use sessions for tracking logins
+app.use(session({
+  secret: 'mud_project',
+  resave: false,
+  saveUninitialized: false
+}));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // This is typically use to serve all the static files int he /public directory
@@ -38,6 +49,8 @@ app.use(express.static(path.join(__dirname, 'public'))); // This is typically us
 app.use('/info', indexRouter);
 app.use('/cert.pem', certificateRouter);
 app.use('/admin', adminFileRouter);
+app.use('/login', loginRouter);
+app.use('/registration', regRouter);
 app.use('/', mudFileRouter);
 
 

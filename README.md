@@ -1,4 +1,4 @@
-# User Policy server
+# User Policy Server
 
 This project is born as mud file server for local network and transformed in a User Policy Server.
 
@@ -16,6 +16,7 @@ mongodb openssl
 <img src="img/user_policy_manager.png">
 
 In this architecture, the UPS gives the possibility to an administrator to introduce more restrictive rules. 
+
 The UPS is a restful server, which works together with mongo db.
 To insert files in mongo db, you can use the following script
 
@@ -87,4 +88,4 @@ Now you can run the server:
 
 As shown in the architecture figure, this server is thought to be used in a local network in which is used osMUD as mud manager implementation. Particularly, for this case we have modified the implementation, in order to do an additional request to this server after having requested the main mud file to the manufacture server. 
 
-You can find the variant of osMUD implementation [here] (). If the implementation doesn't work is because is still in a developing phase, so try the branch **testing**.
+You can find the variant of osMUD implementation [here](https://github.com/aferaudo/osmud). If the implementation doesn't work is because is still in a developing phase, so try the branch **testing**.

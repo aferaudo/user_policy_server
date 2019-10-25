@@ -1,0 +1,14 @@
+extends login_reg_layout
+
+block content
+    div(id="formContent")
+        h2(class="title")= title
+        form(method="POST")
+            input(type="text" id="username" class="fadeIn second" name="username" placeholder="username")
+            input(type="password" id="password" class="fadeIn third" name="password" placeholder="password")
+            input(type="password" id="password" class="fadeIn third" name="passwordConf" placeholder="retype password")
+            input(type="submit" class="fadeIn fourth" value="Register")
+        
+        div(id="formFooter")
+            p #{errorMessage}
+

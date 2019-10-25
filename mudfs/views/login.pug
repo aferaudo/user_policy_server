@@ -1,0 +1,14 @@
+extends login_reg_layout
+
+block content
+    div(id="formContent")
+        h2(class="title")= title
+        form(method="POST")
+            input(type="text" id="username" class="fadeIn second" name="username" placeholder="login")
+            input(type="password" id="password" class="fadeIn third" name="password" placeholder="password")
+            input(type="submit" class="fadeIn fourth" value="Log In")
+        
+        div(id="formFooter")
+            a(class="underlineHover" href="#") Forgot password? 
+            br
+            a(class="underlineHover" href="/registration") Register here
