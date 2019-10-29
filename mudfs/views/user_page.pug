@@ -5,7 +5,7 @@ block content
     p Administration page: #{title}
     p Be sure that the name of the mudfile has the following format: MACADDRESS.json
 
-    form(action='/admin/upload' method='post', enctype='multipart/form-data')
+    form(action='/user_administration/upload' method='post', enctype='multipart/form-data')
         input(type='file', name='mudFileUpload')
         input(type='submit', class='btn btn-outline-primary btn-sm', name='uploadMudFile', value='Upload MudFile')
     
@@ -15,7 +15,7 @@ block content
             li 
                 - var fileName = mud_file.file_name
                 h6 #[a(href="https://www.mfs.example.com/" + fileName + ".json") #{mud_file.file_name}]<!-- change this line with your domain-->
-                    form(action="/admin/remove", method='POST')
+                    form(action="/user_administration/remove", method='POST')
                         input(type='hidden' name="filename" value=fileName)
                         input(type='submit', class='btn btn-outline-danger btn-sm', value='Remove')
             p #{mud_file.source_file}

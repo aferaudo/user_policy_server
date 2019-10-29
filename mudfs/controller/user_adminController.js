@@ -3,10 +3,10 @@ let MudFile = require("../models/mudFileModel")
 
 /* Initialization */
 exports.initial = function(req, res, next){
-    MudFile.find({}, 'file_name source_file')
+    MudFile.find({user_name: req.session.username}, 'file_name source_file')
     .exec(function (err, list) {
       if (err) { return next(err); }
-        res.render('admin', {title: 'Admin', mud_file_list: list})
+        res.render('user_page', {title: req.session.username, mud_file_list: list})
     });
 }
 
@@ -20,7 +20,7 @@ exports.mudFileInsert = function(req,res){
     if(fileName.endsWith('.json') && re.test(fileName.substring(0, fileName.length-5))){
         
         let json_data = fs.readFileSync(path)
-        mudFileDetail = {file_name: fileName.substring(0, fileName.length-5), source_file: json_data}
+        mudFileDetail = {user_name: req.session.username, file_name: fileName.substring(0, fileName.length-5), source_file: json_data}
         let toInsert = new MudFile(mudFileDetail)
         // Before to save the file we have to verify if 
         // already exists a file with that name in the db

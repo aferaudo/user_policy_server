@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let multer = require('multer')
-var controller = require("../controller/adminController")
+var controller = require("../controller/user_adminController")
 //var mudController = require("../controller/mudfileController")
 const DIR = './admin'
 

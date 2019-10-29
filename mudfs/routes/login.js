@@ -5,7 +5,7 @@ let controller = require('../controller/userController')
 
 router.get('/',function(req, res, next){
     if(req.session.loggedin)
-        res.redirect('/admin'); // to change with the page of the user logged in!
+        res.redirect('/user_administration'); // to change with the page of the user logged in!
     else 
     {
         console.log("Requested login page")
@@ -25,7 +25,7 @@ router.post('/',function(req, res, next) {
         else{
             req.session.loggedin = true;
             req.session.username = req.body.username;
-            res.redirect('/admin');
+            res.redirect('/user_administration');
         }
     });
 });

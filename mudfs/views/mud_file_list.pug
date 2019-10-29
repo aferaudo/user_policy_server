@@ -3,13 +3,15 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-
+  h6 #[a(href="/login" class="underlineHover") Login] 
   ul
     
     each mud_file in mud_file_list
       li 
         - var fileName = mud_file.file_name
         h5 #[a(href="https://www.mfs.example.com/" + fileName + ".json") #{mud_file.file_name}] <!-- change this line with your domain-->
+        if(mud_file.user_name)
+          p Inserted by #{mud_file.user_name}
         p #{mud_file.source_file}
     else
       li Thre are no mudfiles in the db (be sure to populate it).

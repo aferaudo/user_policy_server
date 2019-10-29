@@ -5,6 +5,9 @@ let Schema = mongoose.Schema
 
 //Define Schema
 let MudFileSchema = new Schema({
+    user_name: {
+        type: String
+    },
     file_name : {
         type: String,
         required: [true, 'The file must have a name!']

@@ -41,7 +41,7 @@ exports.mudFileByName = function(req, res, next){
 };
 
 exports.mudFileList = function(req, res, next){
-    MudFile.find({}, 'file_name source_file')
+    MudFile.find({}, 'user_name file_name source_file')
     .exec(function (err, list) {
       if (err) { return next(err); }
       //Successful, so render
