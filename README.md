@@ -89,3 +89,5 @@ Now you can run the server:
 As shown in the architecture figure, this server is thought to be used in a local network in which is used osMUD as mud manager implementation. Particularly, for this case we have modified the implementation, in order to do an additional request to this server after having requested the main mud file to the manufacture server. 
 
 You can find the variant of osMUD implementation [here](https://github.com/aferaudo/osmud). If the implementation doesn't work is because is still in a developing phase, so try the branch **testing**.
+
+Futhermore, I'll provide a paper (it is still in review) that describe the different Proof-of-Concept present at the time of writing this software. You can also find some tests on the performance of this architecture.
