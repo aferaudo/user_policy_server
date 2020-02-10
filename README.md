@@ -68,7 +68,7 @@ If you wanto to create your own Certification Authority, as I did, I suggest to 
 
 Now you can run the server:
 
-`sudo npm run`
+`sudo npm start`
 
 (sudo is required because the servers uses a port lower then 1024 (HTTPS port))
 
