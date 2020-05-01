@@ -13,7 +13,7 @@ mongodb openssl
 ```
 
 ### Architecture used
-<img src="img/user_policy_manager.png">
+<img src="img/user_policy_server.png">
 
 In this architecture, the UPS gives the possibility to an administrator to introduce more restrictive rules. 
 
@@ -90,4 +90,4 @@ As shown in the architecture figure, this server is thought to be used in a loca
 
 You can find the variant of osMUD implementation [here](https://github.com/aferaudo/osmud). If the implementation doesn't work is because is still in a developing phase, so try the branch **testing**.
 
-Futhermore, I'll provide a paper (it is still in review) that describe the different Proof-of-Concept present at the time of writing this software. You can also find some tests on the performance of this architecture.
+Futhermore, [here](https://arxiv.org/pdf/2004.08003.pdf) you can find a white paper that describes in details this architecture and gives an overview of the exisisting MUD technologies. You can also find some tests on the performance of this architecture.
