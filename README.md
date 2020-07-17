@@ -64,7 +64,7 @@ At the end you have to have a list of certificates like this:
 
 **N.B.** The names of the certifcates must follow the above nomenclature, otherwise you will have some errors runtime. Futhermore, certificates and key must be collocated in the *certs* directory.
 
-If you wanto to create your own Certification Authority, as I did, I suggest to use this [guide](https://help.ubuntu.com/lts/serverguide/certificates-and-security.html).
+If you wanto to create your own Certification Authority, as I did, I suggest to use this [guide](https://ubuntu.com/server/docs/security-certificates).
 
 Now you can run the server:
 

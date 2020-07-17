@@ -3,6 +3,9 @@ extends layout
 block content
     h1= title
     p Administration page: #{title}
+    form(action='/user_administration/logout' method='get')
+        input(type='submit', class='btn btn-danger', name='Logout', value='Logout')
+    p #[a(href="/") Go to the Home Page]
     p Be sure that the name of the mudfile has the following format: MACADDRESS.json
 
     form(action='/user_administration/upload' method='post', enctype='multipart/form-data')
@@ -14,7 +17,7 @@ block content
         each mud_file in mud_file_list
             li 
                 - var fileName = mud_file.file_name
-                h6 #[a(href="https://www.mfs.example.com/" + fileName + ".json") #{mud_file.file_name}]<!-- change this line with your domain-->
+                h6 #[a(href="/" + fileName + ".json") #{mud_file.file_name}]<!-- change this line with your domain-->
                     form(action="/user_administration/remove", method='POST')
                         input(type='hidden' name="filename" value=fileName)
                         input(type='submit', class='btn btn-outline-danger btn-sm', value='Remove')

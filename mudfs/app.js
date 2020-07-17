@@ -14,9 +14,10 @@ let regRouter = require('./routes/register');
 
 
 
+
 let app = express();
 
-//Each time that the server is started we need to delete all the file in the directory script (because they could be out of date)
+// Each time that the server is started we need to delete all the file in the directory script (because they could be out of date)
 var directory = "script"
 fs.readdir(directory, (err, files) => {
   if (err) throw err;
@@ -39,7 +40,12 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-
+require('express-dynamic-helpers-patch')(app)
+app.dynamicHelpers({
+  session: function (req, res) {
+      return req.session;
+      }
+});
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // This is typically use to serve all the static files int he /public directory

@@ -12,6 +12,7 @@
     "cookie-parser": "^1.4.5",
     "debug": "~4.1.1",
     "express": "^4.17.1",
+    "express-dynamic-helpers-patch": "0.0.2",
     "express-session": "^1.17.0",
     "http-errors": "~1.7.3",
     "https": "^1.0.0",
