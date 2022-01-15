@@ -12,9 +12,9 @@ MUD_FILE_P7S=$(echo $MUD_FILE | awk -F "." '{print $1".p7s"}')
 # The openssl command to call could be differnt on the basis of the os used.
 # For example I have two different path with linux and with MacOs
 
-# MacOS
-/usr/local/ssl/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -binary -outform DER -binary -out $MUD_FILE_P7S
-
+# MacOS (to install cms on MACOS you need to create your own version of openssl (https://security.stackexchange.com/questions/86180/how-do-i-enable-support-for-cryptographic-message-syntax-cms-in-openssl-on-os) )
+# /usr/local/ssl/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -binary -outform DER -binary -out $MUD_FILE_P7S
+/usr/local/ssl/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -outform DER -out $MUD_FILE_P7S
 #Linux
 #/usr/bin/openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in $MUD_FILE -binary -outform DER -binary -out $MUD_FILE_P7S
 
