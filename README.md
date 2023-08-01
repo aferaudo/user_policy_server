@@ -43,7 +43,7 @@ After that you can install all the requirements of the server by using npm:
 npm install
 `
 
-It's important that you have created a CA architecture before of starting the server. This means that you must have
+A CA architecture should be created before of starting the server. This means you to generate:
 
 * server key (used to generate the certificate request)
 * server certificate (signed by a certification authority)
@@ -64,7 +64,9 @@ At the end you have to have a list of certificates like this:
 
 **N.B.** The names of the certifcates must follow the above nomenclature, otherwise you will have some errors runtime. Futhermore, certificates and key must be collocated in the *certs* directory.
 
-If you wanto to create your own Certification Authority, as I did, I suggest to use this [guide](https://ubuntu.com/server/docs/security-certificates).
+If you want to create your own Certification Authority, as I did, I suggest to use this [guide](https://ubuntu.com/server/docs/security-certificates).
+
+Alternatively, you can use a self-signed certificate, which, however, require the configuration on the MUD manager. The MUD server should be a Trusted Entity.
 
 Now you can run the server:
 

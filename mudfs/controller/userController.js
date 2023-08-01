@@ -12,23 +12,20 @@ exports.createNewUser = function(req, res, next){
           password: req.body.password,
         }
         //use schema.create to insert data into the db
-        User.create(userData, function (err, user) {
-          if (err) {
-            res.render('registration', {title: "Registration Page", errorMessage:'Registration failed. Please retry!'})
-          } else {
+        User.create(userData).then(function (user) {
             return res.redirect('/login');
-          }
-        });
+        })
+        .catch(function(err)
+        {
+            res.render('registration', {title: "Registration Page", errorMessage:'Registration failed. Please retry!'})
+        })
     }
 }
 
 /* Authenticate user */
 exports.authUser = function(user, password, callback){
-    User.findOne({ username: user })
-    .exec(function (err, user) {
-        if (err) {
-            return callback(err)
-        } else if (!user) {
+    User.findOne({ username: user }).then(function (user) {
+        if (!user) {
             var err = new Error('User not found.');
             err.status = 401;
             return callback(err);
@@ -40,5 +37,9 @@ exports.authUser = function(user, password, callback){
                 return callback();
             }
         })
-    });
+    })
+    .catch(function(err)
+    {
+        return callback(err)
+    })
 }

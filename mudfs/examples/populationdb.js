@@ -16,12 +16,7 @@ let mudFile = require("../models/mudFileModel")
 
 let mongoose = require("mongoose")
 let mongoDB = userArgs[0]
-// To remove all the deprecation
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-mongoose.set('useUnifiedTopology', true);
-// connect
+
 mongoose.connect(mongoDB)
 mongoose.Promise = global.Promise
 let db = mongoose.connection;
@@ -33,9 +28,11 @@ function mudFileInsertByFileName(fileName){
     mudFileDetail = {file_name: fileName, source_file: json_data}
     let toInsert = new mudFile(mudFileDetail)
 
-    toInsert.save(function(err, toInsert){
-        if(err) throw err;
+    toInsert.save().then(function(toInsert){
         console.log('saved file to mongo')
+    })
+    .catch(function(err){
+        throw err
     })
 }
 
@@ -50,9 +47,11 @@ function mudFileInsertByDirectory(directory){
             let json_data = fs.readFileSync(file)
             mudFileDetail = {file_name: file.substring(0, file.length-5), source_file: json_data}
             let toInsert = new mudFile(mudFileDetail)
-            toInsert.save(function(err, toInsert){
-                if(err) throw err;
+            toInsert.save().then(function(toInsert){
                 console.log('saved file to mongo')
+            }).catch(function(err)
+            {
+                throw err;
             })
         }
     }

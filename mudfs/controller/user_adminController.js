@@ -4,10 +4,13 @@ let MudFile = require("../models/mudFileModel")
 /* Initialization */
 exports.initial = function(req, res, next){
     MudFile.find({user_name: req.session.username}, 'file_name source_file')
-    .exec(function (err, list) {
-      if (err) { return next(err); }
+    .then(function (list) {
         res.render('user_page', {title: req.session.username, mud_file_list: list})
-    });
+    })
+    .catch(function(err)
+    {
+        return next(err)
+    })
 }
 
 /* Insertion of a mud file */
@@ -26,8 +29,7 @@ exports.mudFileInsert = function(req,res){
         // already exists a file with that name in the db
         // if exists we do not insert it
         MudFile.findOne({'file_name': fileName.substring(0, fileName.length-5)}, 'source_file')
-        .exec(function (err, result) {
-            if (err) { return next(err); }
+        .then(function (result) {
             if (result === null) {
                 toInsert.save(function(err, toInsert){
                     if(err) throw err;
@@ -36,7 +38,11 @@ exports.mudFileInsert = function(req,res){
                 });
             }else
                 res.render('myerror',{message: 'File already in the db'})
-        });
+        })
+        .catch(function(err)
+        {
+            return next(err);
+        })
 
     }
     else{
@@ -51,10 +57,13 @@ exports.deleteByName =  function(req,res){
     var filename = req.body.filename
     var query = {file_name: filename}
 
-    MudFile.deleteOne(query,function(err, obj) {
-        if (err) throw err;
-       
+    MudFile.deleteOne(query)
+    .then(function( obj) {       
         res.redirect('back')
+    })
+    .catch(function(err)
+    {
+        throw err
     })
 }
 
