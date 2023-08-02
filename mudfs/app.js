@@ -11,6 +11,7 @@ let certificateRouter = require('./routes/certificate');
 let adminFileRouter = require('./routes/user_adminMudFile');
 let loginRouter = require('./routes/login');
 let regRouter = require('./routes/register');
+let dotenv = require('dotenv').config()
 
 
 

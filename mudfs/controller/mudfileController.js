@@ -1,6 +1,7 @@
 const MudFile = require("../models/mudFileModel") //required in order to access to the data
 const db = require("./connect")
 const shell = require('shelljs')
+let createError = require('http-errors');
 //let forge = require('node-forge');
 //forge.options.usePureJavaScript = true;
 const fs = require('fs');
@@ -10,8 +11,9 @@ exports.mudFileByName = function(req, res, next){
     let file_name = req.params.name;
     if(file_name.endsWith('.p7s')){
       MudFile.findOne({'file_name': file_name.substring(0, file_name.length-4)}, 'source_file')
-      .exec().then(function (result) {
-        if (result === null) {return next(err);}
+      .then(function (result) {
+        if (result === null) {return next(createError(404, 'Not found'));}
+
       
         var temp = "script/" + file_name.substring(0, file_name.length-4) + ".json" //we do this each time, because is possible that the mudfile is changed!
         var temp_out = "script/" + file_name.substring(0, file_name.length-4) + ".p7s"
@@ -33,16 +35,17 @@ exports.mudFileByName = function(req, res, next){
     }else{
       //Display the json of the MudFile requested
       MudFile.findOne({'file_name': file_name.substring(0, file_name.length-5)}, 'source_file')
-      .exec().then(function (result) {
-        if (result === null) {return next(err);}
+      .then(function (result) {
+        if (result === null) {return next(createError(404, 'Not found'));}
         //Successful, so render
-        console.log(result)
         res.setHeader('Content-Type', 'application/json')
         res.send(result.source_file.toString())
       })
       .catch(function(err)
       {
-          return next(err)
+        console.log('here')
+        console.log(err)
+        return next(err)
       })
     }
 };
@@ -51,8 +54,7 @@ exports.mudFileList = function(req, res, next){
     MudFile.find({}, 'user_name file_name source_file')
     .exec().then(function (list) {
       //Successful, so render
-        console.log(list)
-        res.render('mud_file_list', {title: 'Mud File List', mud_file_list: list})
+      res.render('mud_file_list', {title: 'Mud File List', mud_file_list: list})
     })
     .catch(function(err)
     {

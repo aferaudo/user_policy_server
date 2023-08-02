@@ -1,21 +1,21 @@
 #! /usr/bin/env node
 
-console.log('This script populates insert some mudfile in your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0-mbdj7.mongodb.net/local_library?retryWrites=true');
+console.log('This script populates a mongo db with jsonfiles. E.g.: node populatedb.js mongodb://localhost/mudFile <mudfile directory>');
 
 // Get arguments passed on command line
-let userArgs = process.argv.slice(2);
-/*
-if (!userArgs[0].startsWith('mongodb')) {
-    console.log('ERROR: You need to specify a valid mongodb URL as the first argument');
-    return
-}*/
+if (process.argv.length !== 4) {
+    console.log('ERROR: Expected at least 2 arguments (mongo url and json file directory)');
+    process.exit(-1)
+}
 
 let async = require('async')
 let fs = require('fs')
 let mudFile = require("../models/mudFileModel")
 
 let mongoose = require("mongoose")
-let mongoDB = userArgs[0]
+let mongoDB = process.argv.slice(2)[0]
+let directory = process.argv.slice(3)[0]
+
 
 mongoose.connect(mongoDB)
 mongoose.Promise = global.Promise
@@ -38,24 +38,21 @@ function mudFileInsertByFileName(fileName){
 
 
 // Insert all the files present in the specified directory
-function mudFileInsertByDirectory(directory){
-    fs.readdir(directory, (err, files) => {
-    if (err) throw err;
-
+async function mudFileInsertByDirectory(directory){
+    var files = fs.readdirSync(directory)
     for (const file of files) {
-        if(file.endsWith('.json')){
-            let json_data = fs.readFileSync(file)
-            mudFileDetail = {file_name: file.substring(0, file.length-5), source_file: json_data}
-            let toInsert = new mudFile(mudFileDetail)
-            toInsert.save().then(function(toInsert){
-                console.log('saved file to mongo')
-            }).catch(function(err)
-            {
+        if (file.endsWith('.json')) {
+            let json_data = fs.readFileSync(directory + file);
+            mudFileDetail = { file_name: file.substring(0, file.length - 5), source_file: json_data };
+            let toInsert = new mudFile(mudFileDetail);
+            await toInsert.save().then(function (toInsert) {
+                console.log('saved file to mongo');
+            }).catch(function (err) {
                 throw err;
-            })
+            });
         }
     }
-    });
+    
 }
 
 function mudFileRemove(id){
@@ -68,5 +65,13 @@ function mudFileRemove(id){
 db.on('open', function(){
     console.log("connection with mongoose is open")
     //mudFileInsertByFileName('Luminaire_150Testing') 
-    mudFileInsertByDirectory('.'); //change with the absolute path of your directory
+    mudFileInsertByDirectory(directory).then(function()
+    {
+        process.exit(1)
+    })
+    .catch(function(err){
+        throw err
+    })
+
+
 })

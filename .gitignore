@@ -8,3 +8,5 @@ mudfs/script/*.json
 mudfs/script/*.p7s
 
 mudfs/node_modules/
+
+mudfs/.env

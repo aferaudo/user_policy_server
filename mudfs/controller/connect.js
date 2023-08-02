@@ -1,6 +1,8 @@
 let mongoose = require("mongoose")
+let dotenv = require('dotenv').config()
 
-let mongodb = 'mongodb://127.0.0.1/mudFile'
+
+let mongodb = process.env.MONGODB_URI
 // mongoose.set('useNewUrlParser', true);
 // mongoose.set('useFindAndModify', false);
 // mongoose.set('useCreateIndex', true);
