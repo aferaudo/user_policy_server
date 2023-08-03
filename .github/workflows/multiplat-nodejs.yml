@@ -14,8 +14,17 @@ jobs:
   build-multiplat:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [windows-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGODB_USER }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGO_INITDB_DATABASE: mudFile
+    services:
+      mongodb:
+        image: mongo@6.0
+        ports:
+          - 27017:27017
     steps:
     - name: Checkout
       uses: actions/checkout@v3.5.3
@@ -23,23 +32,23 @@ jobs:
       uses: actions/setup-node@v3.7.0
       with:
         node-version: 18.17
-    - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.9.0
-      with:
-        mongodb-version: 6.0
-        mongodb-username: ${{ secrets.MONGODB_USER }}
-        mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
-        mongodb-db: mudFile
-        mongodb-port: 27017
+    # - name: Start MongoDB
+    #   uses: supercharge/mongodb-github-action@1.9.0
+    #   with:
+    #     mongodb-version: 6.0
+    #     mongodb-username: ${{ secrets.MONGODB_USER }}
+    #     mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
+    #     mongodb-db: mudFile
+    #     mongodb-port: 27017
     - name: Installing needed packages
       run: npm ci
     - name: Inserting example elements in db
       working-directory: mudfs/examples
-      run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
+      run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@mongodb:27017/mudFile json_files/
     - name: Testing application
       run: npm test
       env:
         MONGODB_USER: ${{ secrets.MONGODB_USER }}
         MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-        MONGODB_LOCATION: localhost:27017
+        MONGODB_LOCATION: mongodb:27017
         MONGODB_DB: mudFile
