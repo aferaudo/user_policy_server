@@ -32,7 +32,7 @@ jobs:
         mongodb-db: mudFile
         mongodb-port: 27017
     - name: Insert example elements in db
-      working-dir: ./examples
+      working-directory: ./examples
       run: ls -la
       run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
     # - run: npm ci
