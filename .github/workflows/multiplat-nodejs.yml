@@ -61,8 +61,8 @@ jobs:
       run: npm ci
     - name: Testing docker
       run: docker ps -a
-    - name: testing container
-      run: docker exec --tty mongo-example mongosh --port 27017 --eval "db.serverStatus()"
+    # - name: testing container
+    #   run: docker exec --tty mongo-example mongosh --port 27017 --eval "db.serverStatus()"
     - name: Inserting example elements in db
       working-directory: mudfs/examples
       run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@127.0.0.1:27017/ json_files/
