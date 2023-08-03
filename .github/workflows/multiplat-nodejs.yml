@@ -50,7 +50,7 @@ jobs:
     - name: Downloading docker
       run: wget https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe
     - name: Installing docker
-      run: "Docker Desktop Installer.exe" install
+      run: \"Docker Desktop Installer.exe\" install
     - name: Testing installation
       run: docker ps -a
     - name: Checkout
