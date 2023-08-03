@@ -52,7 +52,7 @@ jobs:
     - name: Pulling mongo image
       run: docker pull mongo:latest
     - name: Creating mongo container
-      run: docker run --name mongo-example --publish 27017:27017 -e MONGO_INITDB_DATABASE=mudfile -e MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGODB_USER }} -e MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGODB_PASSWORD }} -d mongo:6.0 
+      run: docker run --name mongo-example --publish 27017:27017 -e MONGO_INITDB_DATABASE=mudFile -e MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGODB_USER }} -e MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGODB_PASSWORD }} -d mongo:6.0 
     - name: Use Node.js 18.17 on windows-latest
       uses: actions/setup-node@v3.7.0
       with:
@@ -63,7 +63,7 @@ jobs:
       run: docker ps -a
     - name: Inserting example elements in db
       working-directory: mudfs/examples
-      run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@127.0.0.1:27017/mudFile?authSource=admin json_files/
+      run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@127.0.0.1:27017/mudFile/?authSource=admin json_files/
     - name: Testing application
       run: npm test
       env:
