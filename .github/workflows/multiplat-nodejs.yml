@@ -38,4 +38,10 @@ jobs:
       run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
     # 
     # - run: npm run build --if-present
-    # - run: npm test
+    - name: Running test
+      run: npm test
+      env:
+        MONGODB_USER: ${{ secrets.MONGODB_USER }}
+        MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+        MONGODB_LOCATION: localhost:27017
+        MONGODB_DB: mudFile
