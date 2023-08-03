@@ -7,14 +7,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  defaults:
-    run:
-      working-directory: ./mudfs/ 
   build:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }} 
+    defaults:
+      run:
+        working-directory: mudfs
     steps:
     - uses: actions/checkout@v3.5.3
     - name: Use Node.js 18.17 on ${{ matrix.os }}
