@@ -47,13 +47,11 @@ jobs:
   build-on-windows:
     runs-on: windows-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3.5.3
     - name: Downloading docker
       run: wget https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe
-    - name: Checking download
-      run: ls
     - name: Installing docker
       run: "Docker Desktop Installer.exe" install
     - name: Testing installation
       run: docker ps -a
+    - name: Checkout
+      uses: actions/checkout@v3.5.3
