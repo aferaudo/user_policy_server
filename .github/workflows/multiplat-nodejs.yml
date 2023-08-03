@@ -14,7 +14,7 @@ jobs:
   build-multiplat:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
@@ -36,9 +36,7 @@ jobs:
     - name: Inserting example elements in db
       working-directory: mudfs/examples
       run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
-    # 
-    # - run: npm run build --if-present
-    - name: Running test
+    - name: Testing application
       run: npm test
       env:
         MONGODB_USER: ${{ secrets.MONGODB_USER }}
