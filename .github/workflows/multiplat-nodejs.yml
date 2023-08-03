@@ -63,7 +63,7 @@ jobs:
       run: docker ps -a
     - name: Inserting example elements in db
       working-directory: mudfs/examples
-      run: node populationdb.js mongodb+srv://user:test@127.0.0.1:27017/mudFile?retryWrites=true&authSource=admin json_files/
+      run: node populationdb.js mongodb+srv://user:test@127.0.0.1:27017/mudFile?authSource=admin json_files/
     - name: Testing application
       run: npm test
       env:
