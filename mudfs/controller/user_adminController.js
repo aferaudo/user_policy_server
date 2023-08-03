@@ -20,7 +20,10 @@ exports.mudFileInsert = function(req,res){
     var re = new RegExp("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$") 
     /* The file inserted must be a json file and must have a particulare name format:
     MACADDRESS.json */
-    if(fileName.endsWith('.json') && re.test(fileName.substring(0, fileName.length-5))){
+    var condition = false
+    if(req.session.username !== 'admin') {condition = fileName.endsWith('.json') && re.test(fileName.substring(0, fileName.length-5))}
+    else {condition = fileName.endsWith('.json')}
+    if(condition){
         
         let json_data = fs.readFileSync(path)
         mudFileDetail = {user_name: req.session.username, file_name: fileName.substring(0, fileName.length-5), source_file: json_data}
@@ -31,10 +34,14 @@ exports.mudFileInsert = function(req,res){
         MudFile.findOne({'file_name': fileName.substring(0, fileName.length-5)}, 'source_file')
         .then(function (result) {
             if (result === null) {
-                toInsert.save(function(err, toInsert){
-                    if(err) throw err;
+                toInsert.save().then(function(toInsert)
+                {
                     console.log('saved file to mongo')
                     res.redirect('back')
+                })
+                .catch(function(err)
+                {
+                    throw(err)
                 });
             }else
                 res.render('myerror',{message: 'File already in the db'})
