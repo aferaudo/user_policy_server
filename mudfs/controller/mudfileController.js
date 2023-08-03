@@ -25,7 +25,7 @@ exports.mudFileByName = function(req, res, next){
         // shell.exec('script/sign_json.sh' + " " + temp); //insert here your script!
         shell.exec('openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out) 
         var p7sFile = fs.readFileSync("script/" + file_name)
-        console.log(result)
+        // console.log(result)
         res.setHeader('Content-Type', 'application/pkcs7-signature')
         res.send(p7sFile)
       }).catch(function(err)
@@ -43,8 +43,6 @@ exports.mudFileByName = function(req, res, next){
       })
       .catch(function(err)
       {
-        console.log('here')
-        console.log(err)
         return next(err)
       })
     }

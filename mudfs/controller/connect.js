@@ -2,12 +2,11 @@ let mongoose = require("mongoose")
 let dotenv = require('dotenv').config()
 
 
-let mongodb = process.env.MONGODB_URI
-// mongoose.set('useNewUrlParser', true);
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useCreateIndex', true);
-// mongoose.set('useUnifiedTopology', true);
-mongoose.connect(mongodb);
+let mongodb = "mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB 
+mongoose.connect(mongodb,
+    {
+        authSource:"admin"
+    });
 mongoose.Promise = global.Promise
  
 //Get the default connection

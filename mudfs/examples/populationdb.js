@@ -17,7 +17,10 @@ let mongoDB = process.argv.slice(2)[0]
 let directory = process.argv.slice(3)[0]
 
 
-mongoose.connect(mongoDB)
+mongoose.connect(mongoDB,
+    {
+        authSource:"admin"
+    })
 mongoose.Promise = global.Promise
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

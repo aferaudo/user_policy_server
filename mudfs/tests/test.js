@@ -5,7 +5,11 @@ const app = require("../app");
 
 /* Connecting to the database before each test. */
 beforeEach(async () => {
-    await mongoose.connect(process.env.MONGODB_URI);
+    let mongodb = "mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB 
+    await mongoose.connect(mongodb,
+        {
+            authSource:"admin"
+        });
 });
   
 /* Closing database connection after each test. */
@@ -45,7 +49,6 @@ describe("GET /novalidfile.json", () => {
 describe("GET /novalidfile.p7s", () => {
     it("should return 404 not available p7s file", async () => {
       const res = await request(app).get("/novalidfile.p7s");
-      console.log(res)
       expect(res.statusCode).toBe(404);
     });
 });
