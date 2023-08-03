@@ -31,9 +31,11 @@ jobs:
         mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
         mongodb-db: mudFile
         mongodb-port: 27017
-    - name: Insert example elements in db
+    - name: Installing needed packages
+      run: npm ci
+    - name: Inserting example elements in db
       working-directory: mudfs/examples
       run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
-    # - run: npm ci
+    # 
     # - run: npm run build --if-present
     # - run: npm test
