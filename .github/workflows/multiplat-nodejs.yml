@@ -14,14 +14,27 @@ jobs:
   build-multiplat:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3.5.3
+    - name: Checkout
+      uses: actions/checkout@v3.5.3
     - name: Use Node.js 18.17 on ${{ matrix.os }}
       uses: actions/setup-node@v3.7.0
       with:
         node-version: 18.17
-    - run: npm ci
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.9.0
+      with:
+        mongodb-version: 6.0
+        mongodb-username: ${{ secrets.MONGODB_USER }}
+        mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
+        mongodb-db: mudFile
+        mongodb-port: 27017
+    - name: Insert example elements in db
+      working-dir: ./examples
+      run: ls -la
+      run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
+    # - run: npm ci
     # - run: npm run build --if-present
     # - run: npm test
