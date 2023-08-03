@@ -1,0 +1,23 @@
+name: Workflow testing the server on multiple os
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}  
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18.17 on ${{ matrix.os }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.17
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
