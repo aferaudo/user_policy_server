@@ -52,13 +52,22 @@ jobs:
     - name: Pulling mongo image
       run: docker pull mongo:latest
     - name: Creating mongo container
-      run: docker run --name mongo-example -p 0.0.0.0:27017:27017 -e MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGODB_USER }} -e MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGODB_PASSWORD }} mongo:latest 
-    - name: test
-      run: docker ps -a
-      # - name: Downloading docker
-    #   run: Invoke-WebRequest -Uri https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe -OutFile Docker.exe
-    # - name: Installing docker
-    #   run: Docker.exe install
-    # - name: Testing installation
-    #   run: docker ps -a
+      run: docker run --name mongo-example -p 0.0.0.0:27017:27017 -e MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGODB_USER }} -e MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGODB_PASSWORD }} -d mongo:latest 
+    - name: Use Node.js 18.17 on ubuntu-latest
+      uses: actions/setup-node@v3.7.0
+      with:
+        node-version: 18.17
+      - name: Installing needed packages
+          run: npm ci
+        - name: Inserting example elements in db
+          working-directory: mudfs/examples
+          run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
+        - name: Testing application
+          run: npm test
+          env:
+            MONGODB_USER: ${{ secrets.MONGODB_USER }}
+            MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+            MONGODB_LOCATION: localhost:27017
+            MONGODB_DB: mudFile
+
 
