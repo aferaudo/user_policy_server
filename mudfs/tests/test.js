@@ -38,12 +38,12 @@ describe("GET /appliances.json", () => {
     });
 });
 
-// describe("GET /appliances.p7s", () => {
-//     it("should return appliances.json signature", async () => {
-//       const res = await request(app).get("/appliances.p7s");
-//       expect(res.statusCode).toBe(200);
-//     });
-// });
+describe("GET /appliances.p7s", () => {
+    it("should return appliances.json signature", async () => {
+      const res = await request(app).get("/appliances.p7s");
+      expect(res.statusCode).toBe(200);
+    });
+});
 
 describe("GET /", () => {
     it("should return all mudfile", async () => {
