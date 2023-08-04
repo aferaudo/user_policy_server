@@ -113,7 +113,7 @@ jobs:
         cp server.key server.key.pem 
       working-directory: mudfs/certs
     - name: Testing application
-      run: npm test -- --runInBand --max-workers 1
+      run: npm test -- --max-workers 1
       env:
         MONGODB_USER: ""
         MONGODB_PASSWORD: ""
