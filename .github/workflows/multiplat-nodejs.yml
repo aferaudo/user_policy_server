@@ -53,12 +53,8 @@ jobs:
       run: docker pull mongo:6.0
     - name: Creating mongo container
       run: docker run --name mongo-example --publish 27017:27017 -d mongo:6.0
-    - name: finding command mongo
-      run: docker exec mongo-example which mongo
-    - name: finding command mongosh
-      run: docker exec mongo-example which mongosh
     - name: Creating mongo admin user
-      run: docker exec mongo-example mongosh admin --eval \'db.createUser({user:${{ secrets.MONGODB_USER }}, pwd:${{ secrets.MONGODB_PASSWORD }}, roles:[\"userAdminAnyDatabase\"]})\'
+      run: docker exec mongo-example mongo admin --eval \'db.createUser({user:${{ secrets.MONGODB_USER }}, pwd:${{ secrets.MONGODB_PASSWORD }}, roles:[\"userAdminAnyDatabase\"]})\'
     - name: Use Node.js 18.17 on windows-latest
       uses: actions/setup-node@v3.7.0
       with:
