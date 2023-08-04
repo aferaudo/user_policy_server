@@ -114,7 +114,7 @@ jobs:
       working-directory: mudfs/certs
 
     - name: Testing application
-      run: npm test
+      run: npm test -- --runInBand
       env:
         MONGODB_USER: ""
         MONGODB_PASSWORD: ""
