@@ -66,23 +66,28 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3.5.3
+
     - name: Pulling mongo image
       run: docker pull mongo:6.0
+
     - name: Creating mongo container
       run: docker run --name mongo-example -d --publish 27017:27017 mongo:6.0
+
     - name: Use Node.js 18.17 on windows-latest
       uses: actions/setup-node@v3.7.0
       with:
         node-version: 18.17
+
     - name: Installing needed packages
       run: npm ci
+
     - name: Testing docker
       run: docker ps -a
-    - name: Logs docker container
-      run: docker logs mongo-example
+
     - name: Inserting example elements in db
       working-directory: mudfs/examples
       run: node populationdb.js mongodb://127.0.0.1:27017/mudFile json_files/
+      
     - name: Install OpenSSL
       run: |
         # Download OpenSSL binaries
