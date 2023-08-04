@@ -59,9 +59,9 @@ describe("GET /novalidfile.json", () => {
     });
 });
 
-// describe("GET /novalidfile.p7s", () => {
-//     it("should return 404 not available p7s file", async () => {
-//       const res = await request(app).get("/novalidfile.p7s");
-//       expect(res.statusCode).toBe(404);
-//     });
-// });
+describe("GET /novalidfile.p7s", () => {
+    it("should return 404 not available p7s file", async () => {
+      const res = await request(app).get("/novalidfile.p7s");
+      expect(res.statusCode).toBe(404);
+    });
+});
