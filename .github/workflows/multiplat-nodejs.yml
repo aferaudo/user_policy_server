@@ -139,6 +139,6 @@ jobs:
         MONGODB_PASSWORD: ""
         MONGODB_LOCATION: 127.0.0.1:27017
         MONGODB_DB: mudFile
-        OPEN_SSL_PATH: ${{ steps.openssl_path.outputs.aliasSource }}
+        OPEN_SSL_PATH: #${{ steps.openssl_path.outputs.aliasSource }}
 
 
