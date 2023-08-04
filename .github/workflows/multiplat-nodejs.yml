@@ -65,10 +65,6 @@ jobs:
 
   build-on-windows:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: pwsh  # Use "powershell" for Windows PowerShell
-        working-directory: mudfs
     steps:
     - name: Check PowerShell Version
       run: |
