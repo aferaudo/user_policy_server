@@ -23,6 +23,7 @@ exports.mudFileByName = function(req, res, next){
           console.log('File is created successfully.');
         })
         // shell.exec('script/sign_json.sh' + " " + temp); //insert here your script!
+        console.log('here is the problem')
         shell.exec('openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out) 
         var p7sFile = fs.readFileSync("script/" + file_name)
         // console.log(result)
