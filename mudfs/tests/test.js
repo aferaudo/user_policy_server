@@ -11,7 +11,6 @@ beforeEach(async () => {
     if(process.env.MONGODB_USER.length === 0 && process.env.MONGODB_PASSWORD.length === 0)
     {
       mongodb = "mongodb://" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB
-      console.log(mongodb)
       await mongoose.connect(mongodb,
       {
         useNewUrlParser: true, 
