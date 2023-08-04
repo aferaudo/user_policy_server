@@ -112,11 +112,8 @@ jobs:
         openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
         cp server.key server.key.pem 
       working-directory: mudfs/certs
-    - name: Get number of CPU cores
-      id: cpu-cores
-      uses: SimenB/github-actions-cpu-cores@v1
     - name: Testing application
-      run: npm test -- --runInBand  --max-workers  ${{ steps.cpu-cores.outputs.count }}
+      run: npm test -- --runInBand --max-workers 1
       env:
         MONGODB_USER: ""
         MONGODB_PASSWORD: ""
