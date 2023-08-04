@@ -70,7 +70,7 @@ db.on('open', function(){
     //mudFileInsertByFileName('Luminaire_150Testing') 
     mudFileInsertByDirectory(directory).then(function()
     {
-        process.exit(1)
+        process.exit(0)
     })
     .catch(function(err){
         throw err

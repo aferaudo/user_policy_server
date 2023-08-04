@@ -5,11 +5,24 @@ const app = require("../app");
 
 /* Connecting to the database before each test. */
 beforeEach(async () => {
-    let mongodb = "mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB 
-    await mongoose.connect(mongodb,
-        {
-            authSource:"admin"
-        });
+
+
+    let mongodb = ""
+    if(process.env.MONGODB_USER.length === 0 && process.env.MONGODB_PASSWORD.length === 0)
+    {
+      mongodb = "mongodb://" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB
+      await mongoose.connect(mongodb,
+      {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true 
+      })
+    }else{
+      mongodb = "mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB 
+      await mongoose.connect(mongodb,
+      {
+          authSource:"admin"
+      });
+    }
 });
   
 /* Closing database connection after each test. */
@@ -18,7 +31,7 @@ afterEach(async () => {
 });
 
 // testing if example file has been inserted
-describe("GET /", () => {
+describe("GET /appliances.json", () => {
     it("should return appliances.json", async () => {
       const res = await request(app).get("/appliances.json");
       expect(res.statusCode).toBe(200);
