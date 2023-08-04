@@ -30,8 +30,10 @@ exports.mudFileByName = function(req, res, next){
         if (nosignature === false)
         {
           if(process.env.OPEN_SSL_PATH.length != 0)
+          {
+            console.log('here with path')
             script = '\"' + process.env.OPEN_SSL_PATH + '\"' +' cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
-          else
+          }else
             script = 'openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
           
           console.log(script)

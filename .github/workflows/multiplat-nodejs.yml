@@ -130,7 +130,7 @@ jobs:
         # Extract the 'Source' property from the result and store it in 'aliasSource'
         $aliasSource = $result.Source
         # Output the result to the standard output
-        echo "::set-output name=aliasSource::$aliasSource"
+        echo "$aliasSource"
 
     - name: Testing application
       run: npm test -- --max-workers  ${{ steps.cpu-cores.outputs.count }}
