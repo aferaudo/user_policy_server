@@ -63,6 +63,8 @@ jobs:
       run: npm ci
     - name: Testing docker
       run: docker ps -a
+    - name: Logs docker container
+      run: docker logs mongo-example
     - name: Inserting example elements in db
       working-directory: mudfs/examples
       run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@127.0.0.1:27017/mudFile?authSource=admin json_files/
