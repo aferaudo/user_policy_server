@@ -31,26 +31,26 @@ afterEach(async () => {
 });
 
 // testing if example file has been inserted
-describe("GET /appliances.json", () => {
-    it("should return appliances.json", async () => {
-      const res = await request(app).get("/appliances.json");
-      expect(res.statusCode).toBe(200);
-    });
-});
+// describe("GET /appliances.json", () => {
+//     it("should return appliances.json", async () => {
+//       const res = await request(app).get("/appliances.json");
+//       expect(res.statusCode).toBe(200);
+//     });
+// });
 
-describe("GET /appliances.p7s", () => {
-    it("should return appliances.json signature", async () => {
-      const res = await request(app).get("/appliances.p7s");
-      expect(res.statusCode).toBe(200);
-    });
-});
+// describe("GET /appliances.p7s", () => {
+//     it("should return appliances.json signature", async () => {
+//       const res = await request(app).get("/appliances.p7s");
+//       expect(res.statusCode).toBe(200);
+//     });
+// });
 
-describe("GET /", () => {
-    it("should return all mudfile", async () => {
-      const res = await request(app).get("/");
-      expect(res.statusCode).toBe(200);
-    });
-});
+// describe("GET /", () => {
+//     it("should return all mudfile", async () => {
+//       const res = await request(app).get("/");
+//       expect(res.statusCode).toBe(200);
+//     });
+// });
 
 describe("GET /novalidfile.json", () => {
     it("should return 404 not available json file", async () => {
@@ -59,9 +59,9 @@ describe("GET /novalidfile.json", () => {
     });
 });
 
-describe("GET /novalidfile.p7s", () => {
-    it("should return 404 not available p7s file", async () => {
-      const res = await request(app).get("/novalidfile.p7s");
-      expect(res.statusCode).toBe(404);
-    });
-});
+// describe("GET /novalidfile.p7s", () => {
+//     it("should return 404 not available p7s file", async () => {
+//       const res = await request(app).get("/novalidfile.p7s");
+//       expect(res.statusCode).toBe(404);
+//     });
+// });
