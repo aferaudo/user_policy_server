@@ -32,7 +32,7 @@ afterEach(async () => {
 });
 
 // testing if example file has been inserted
-describe("GET /", () => {
+describe("GET /appliances.json", () => {
     it("should return appliances.json", async () => {
       const res = await request(app).get("/appliances.json");
       expect(res.statusCode).toBe(200);
