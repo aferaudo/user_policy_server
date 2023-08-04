@@ -68,6 +68,7 @@ jobs:
     defaults:
       run:
         shell: pwsh  # Use "powershell" for Windows PowerShell
+        working-directory: mudfs
     steps:
     - name: Check PowerShell Version
       run: |
@@ -124,7 +125,7 @@ jobs:
       working-directory: mudfs/certs
     
     - name: Verifying cms openssl
-      run: openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in examples/json_files/appliances.json -outform DER -out test.p7s 
+      run: cd test && node testShell.js
 
     - name: Get number of CPU cores
       id: cpu-cores
