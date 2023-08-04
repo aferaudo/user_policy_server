@@ -121,6 +121,16 @@ jobs:
     - name: Get number of CPU cores
       id: cpu-cores
       uses: SimenB/github-actions-cpu-cores@v1
+    
+    - name: finding openssl
+      id: openssl_path
+      run: |
+        # Run the Get-Command and store the output in the 'result' variable
+        $result = Get-Command -Name pwd
+        # Extract the 'Source' property from the result and store it in 'aliasSource'
+        $aliasSource = $result.Source
+        # Output the result to the standard output
+        echo "::set-output name=aliasSource::$aliasSource"
 
     - name: Testing application
       run: npm test -- --max-workers  ${{ steps.cpu-cores.outputs.count }}
@@ -129,6 +139,6 @@ jobs:
         MONGODB_PASSWORD: ""
         MONGODB_LOCATION: 127.0.0.1:27017
         MONGODB_DB: mudFile
-        OPEN_SSL_PATH: C:\Program Files\OpenSSL-Win64\bin\openssl.exe
+        OPEN_SSL_PATH: ${{ steps.openssl_path.outputs.aliasSource }}
 
 
