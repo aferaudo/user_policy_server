@@ -46,7 +46,7 @@ jobs:
       working-directory: mudfs/certs
 
     - name: Generate Certificate Signing Request (CSR)
-      run: openssl req -new -key server.key -out csr.pem
+      run: openssl req -new -key server.key -out csr.pem -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
       working-directory: mudfs/certs
     
     - name: Generate OpenSSL certificate
@@ -99,7 +99,7 @@ jobs:
       working-directory: mudfs/certs
 
     - name: Generate Certificate Signing Request (CSR)
-      run: openssl req -new -key server.key -out csr.pem
+      run: openssl req -new -key server.key -out csr.pem -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
       working-directory: mudfs/certs
     
     - name: Generate OpenSSL certificate
