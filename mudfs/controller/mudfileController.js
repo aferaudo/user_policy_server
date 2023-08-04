@@ -3,7 +3,7 @@ const db = require("./connect")
 const shell = require('shelljs')
 let createError = require('http-errors');
 let dotenv = require('dotenv').config()
-
+let nosignature = process.env.nosignature === 'true'
 
 const fs = require('fs');
 
@@ -26,12 +26,21 @@ exports.mudFileByName = function(req, res, next){
         // shell.exec('script/sign_json.sh' + " " + temp); //insert here your script!
         console.log('here is the problem')
         var script = ""
-        if(process.env.OPEN_SSL_PATH.length != 0)
-          script = '\"' + process.env.OPEN_SSL_PATH + '\"' +' cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
+        console.log(nosignature)
+        if (nosignature === false)
+        {
+          if(process.env.OPEN_SSL_PATH.length != 0)
+            script = '\"' + process.env.OPEN_SSL_PATH + '\"' +' cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
+          else
+            script = 'openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
+          
+          console.log(script)
+          shell.exec(script) 
+        }
         else
-          script = 'openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
-        console.log(script)
-        shell.exec(script) 
+        {
+          console.log('to be defined')
+        }
 
         var p7sFile = fs.readFileSync("script/" + file_name)
         // console.log(result)
