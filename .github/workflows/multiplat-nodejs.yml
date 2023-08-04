@@ -66,11 +66,6 @@ jobs:
   build-on-windows:
     runs-on: windows-latest
     steps:
-    - name: Check PowerShell Version
-      run: |
-        # Output the PowerShell version
-        echo "PowerShell version: $PSVersionTable.PSVersion"
-    
     - name: Checkout
       uses: actions/checkout@v3.5.3
 
