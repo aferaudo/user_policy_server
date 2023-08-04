@@ -2,8 +2,9 @@ const MudFile = require("../models/mudFileModel") //required in order to access 
 const db = require("./connect")
 const shell = require('shelljs')
 let createError = require('http-errors');
-//let forge = require('node-forge');
-//forge.options.usePureJavaScript = true;
+let dotenv = require('dotenv').config()
+
+
 const fs = require('fs');
 
 
@@ -24,7 +25,14 @@ exports.mudFileByName = function(req, res, next){
         })
         // shell.exec('script/sign_json.sh' + " " + temp); //insert here your script!
         console.log('here is the problem')
-        shell.exec('openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out) 
+        var script = ""
+        if(process.env.OPEN_SSL_PATH.length != 0)
+          script = '\"' + process.env.OPEN_SSL_PATH + '\"' +' cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
+        else
+          script = 'openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in ' + temp +' -outform DER -out ' + temp_out
+        console.log(script)
+        shell.exec(script) 
+
         var p7sFile = fs.readFileSync("script/" + file_name)
         // console.log(result)
         res.setHeader('Content-Type', 'application/pkcs7-signature')

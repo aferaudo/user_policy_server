@@ -116,7 +116,7 @@ jobs:
       working-directory: mudfs/certs
     
     - name: Verifying cms openssl
-      run: cd test && node testShell.js
+      run: cd tests && node testShell.js
 
     - name: Get number of CPU cores
       id: cpu-cores
@@ -129,5 +129,6 @@ jobs:
         MONGODB_PASSWORD: ""
         MONGODB_LOCATION: 127.0.0.1:27017
         MONGODB_DB: mudFile
+        OPEN_SSL_PATH: C:\Program Files\OpenSSL-Win64\bin\openssl.exe
 
 
