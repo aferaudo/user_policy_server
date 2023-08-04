@@ -93,7 +93,7 @@ jobs:
     - name: Install OpenSSL
       run: |
         # Download OpenSSL binaries
-        Invoke-WebRequest -Uri 'https://slproweb.com/download/Win32OpenSSL_Light-3_1_2.exe' -OutFile 'OpenSSL.exe'
+        Invoke-WebRequest -Uri 'https://slproweb.com/download/Win64OpenSSL_Light-1_1_1v.exe' -OutFile 'openssl.exe'
 
         # Install OpenSSL silently
         Start-Process -FilePath 'OpenSSL.exe' -ArgumentList '/S' -Wait

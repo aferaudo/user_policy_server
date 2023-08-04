@@ -3,7 +3,7 @@ const db = require("./connect")
 const shell = require('shelljs')
 let createError = require('http-errors');
 let dotenv = require('dotenv').config()
-let nosignature = process.env.nosignature === 'true'
+let nosignature = process.env.NO_SIGNATURE === 'true'
 
 const fs = require('fs');
 
@@ -38,16 +38,17 @@ exports.mudFileByName = function(req, res, next){
           
           console.log(script)
           shell.exec(script) 
+          var p7sFile = fs.readFileSync("script/" + file_name)
+          // console.log(result)
+          res.setHeader('Content-Type', 'application/pkcs7-signature')
+          res.send(p7sFile)
         }
         else
         {
-          console.log('to be defined')
+          var fileread = fs.readFileSync(temp)
+          res.setHeader('Content-Type', 'application/json')
+          res.send(fileread)
         }
-
-        var p7sFile = fs.readFileSync("script/" + file_name)
-        // console.log(result)
-        res.setHeader('Content-Type', 'application/pkcs7-signature')
-        res.send(p7sFile)
       }).catch(function(err)
       {
         return next(err); 
