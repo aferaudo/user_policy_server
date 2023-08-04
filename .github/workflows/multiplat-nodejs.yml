@@ -50,7 +50,9 @@ jobs:
   #     working-directory: mudfs/certs
     
   #   - name: Generate OpenSSL certificate
-  #     run: openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
+  #     run: |
+  #       openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
+  #       cp server.key server.key.pem 
   #     working-directory: mudfs/certs
 
   #   - name: Testing application
@@ -112,9 +114,14 @@ jobs:
         openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
         cp server.key server.key.pem 
       working-directory: mudfs/certs
+    
+    - name: Verifying cms openssl
+      run: openssl cms -sign -signer certs/server.pem -inkey certs/server.key -in examples/json_files/appliances.json -outform DER -out test.p7s 
+
     - name: Get number of CPU cores
       id: cpu-cores
       uses: SimenB/github-actions-cpu-cores@v1
+
     - name: Testing application
       run: npm test -- --max-workers  ${{ steps.cpu-cores.outputs.count }}
       env:
