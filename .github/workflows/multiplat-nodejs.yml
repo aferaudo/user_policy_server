@@ -11,55 +11,55 @@ defaults:
     working-directory: mudfs
 
 jobs:
-  build-on-linux:
-    # strategy:
-    #   matrix:
-    #     os: [ubuntu-latest]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3.5.3
+  # build-on-linux:
+  #   # strategy:
+  #   #   matrix:
+  #   #     os: [ubuntu-latest]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v3.5.3
     
-    - name: Use Node.js 18.17 on ubuntu-latest
-      uses: actions/setup-node@v3.7.0
-      with:
-        node-version: 18.17
+  #   - name: Use Node.js 18.17 on ubuntu-latest
+  #     uses: actions/setup-node@v3.7.0
+  #     with:
+  #       node-version: 18.17
     
-    - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.9.0
-      with:
-        mongodb-version: 6.0
-        mongodb-username: ${{ secrets.MONGODB_USER }}
-        mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
-        mongodb-db: mudFile
-        mongodb-port: 27017
+  #   - name: Start MongoDB
+  #     uses: supercharge/mongodb-github-action@1.9.0
+  #     with:
+  #       mongodb-version: 6.0
+  #       mongodb-username: ${{ secrets.MONGODB_USER }}
+  #       mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
+  #       mongodb-db: mudFile
+  #       mongodb-port: 27017
     
-    - name: Installing needed packages
-      run: npm ci
+  #   - name: Installing needed packages
+  #     run: npm ci
     
-    - name: Inserting example elements in db
-      working-directory: mudfs/examples
-      run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
+  #   - name: Inserting example elements in db
+  #     working-directory: mudfs/examples
+  #     run: node populationdb.js mongodb://${{ secrets.MONGODB_USER }}:${{ secrets.MONGODB_PASSWORD }}@localhost:27017/mudFile json_files/
     
-    - name: Generate Private Key
-      run: openssl genrsa -out server.key
-      working-directory: mudfs/certs
+  #   - name: Generate Private Key
+  #     run: openssl genrsa -out server.key
+  #     working-directory: mudfs/certs
 
-    - name: Generate Certificate Signing Request (CSR)
-      run: openssl req -new -key server.key -out csr.pem -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
-      working-directory: mudfs/certs
+  #   - name: Generate Certificate Signing Request (CSR)
+  #     run: openssl req -new -key server.key -out csr.pem -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
+  #     working-directory: mudfs/certs
     
-    - name: Generate OpenSSL certificate
-      run: openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
-      working-directory: mudfs/certs
+  #   - name: Generate OpenSSL certificate
+  #     run: openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
+  #     working-directory: mudfs/certs
 
-    - name: Testing application
-      run: npm test
-      env:
-        MONGODB_USER: ${{ secrets.MONGODB_USER }}
-        MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-        MONGODB_LOCATION: localhost:27017
-        MONGODB_DB: mudFile
+  #   - name: Testing application
+  #     run: npm test
+  #     env:
+  #       MONGODB_USER: ${{ secrets.MONGODB_USER }}
+  #       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+  #       MONGODB_LOCATION: localhost:27017
+  #       MONGODB_DB: mudFile
 
   build-on-windows:
     runs-on: windows-latest
@@ -87,7 +87,7 @@ jobs:
     - name: Inserting example elements in db
       working-directory: mudfs/examples
       run: node populationdb.js mongodb://127.0.0.1:27017/mudFile json_files/
-      
+
     - name: Install OpenSSL
       run: |
         # Download OpenSSL binaries
