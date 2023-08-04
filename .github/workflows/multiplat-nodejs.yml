@@ -50,7 +50,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3.5.3
     - name: Pulling mongo image
-      run: docker build -t my-custom-mongodb
+      run: docker build -t my-custom-mongodb .
       working-directory: mudfs/docker/mongo
     - name: Creating mongo container
       run: docker run --name mongo-example --publish 27017:27017 -d my-custom-mongodb
