@@ -11,10 +11,13 @@ beforeEach(async () => {
     if(process.env.MONGODB_USER.length === 0 && process.env.MONGODB_PASSWORD.length === 0)
     {
       mongodb = "mongodb://" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB
-      await mongoose.connect(mongodb)
-    }
-
-    else{
+      console.log(mongodb)
+      await mongoose.connect(mongodb,
+      {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true 
+      })
+    }else{
       mongodb = "mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB 
       await mongoose.connect(mongodb,
       {

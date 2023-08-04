@@ -114,6 +114,6 @@ jobs:
         MONGODB_USER: ""
         MONGODB_PASSWORD: ""
         MONGODB_LOCATION: 127.0.0.1:27017
-        MONGODB_DB: "mudFile"
+        MONGODB_DB: mudFile
 
 
