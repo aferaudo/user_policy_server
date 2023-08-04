@@ -5,7 +5,13 @@ const app = require("../app");
 
 /* Connecting to the database before each test. */
 beforeEach(async () => {
-    let mongodb = "mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB 
+
+
+    let mongodb = ""
+    if(process.env.MONGODB_USER.length === 0 && process.env.MONGODB_PASSWORD.length === 0)
+      mongodb = "mongodb://" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB
+    else
+      mongodb = "mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@" + process.env.MONGODB_LOCATION + "/" + process.env.MONGODB_DB 
     await mongoose.connect(mongodb,
         {
             authSource:"admin"
