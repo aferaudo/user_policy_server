@@ -45,12 +45,12 @@ afterEach(async () => {
 //     });
 // });
 
-// describe("GET /", () => {
-//     it("should return all mudfile", async () => {
-//       const res = await request(app).get("/");
-//       expect(res.statusCode).toBe(200);
-//     });
-// });
+describe("GET /", () => {
+    it("should return all mudfile", async () => {
+      const res = await request(app).get("/");
+      expect(res.statusCode).toBe(200);
+    });
+});
 
 describe("GET /novalidfile.json", () => {
     it("should return 404 not available json file", async () => {
