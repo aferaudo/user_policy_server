@@ -103,7 +103,9 @@ jobs:
       working-directory: mudfs/certs
     
     - name: Generate OpenSSL certificate
-      run: openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
+      run: |
+        openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
+        cp server.key server.key.pem 
       working-directory: mudfs/certs
 
     - name: Testing application

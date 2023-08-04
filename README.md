@@ -72,7 +72,6 @@ openssl req -new -key server.key -out csr.pem
 openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
 rm csr.pem
 cp server.key server.key.pem 
-mv cert.pem server.pem
 ```
 
 
