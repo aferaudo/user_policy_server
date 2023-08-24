@@ -24,9 +24,7 @@ exports.mudFileByName = function(req, res, next){
           console.log('File is created successfully.');
         })
         // shell.exec('script/sign_json.sh' + " " + temp); //insert here your script!
-        console.log('here is the problem')
         var script = ""
-        console.log(nosignature)
         if (nosignature === false)
         {
           if(process.env.OPEN_SSL_PATH.length != 0)

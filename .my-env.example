@@ -1,0 +1,4 @@
+# The file .my-env should be used for docker-compose configuration
+MONGODB_USER="user"
+MONGODB_PASSWORD="test"
+MONGODB_LOCATION="mongo:27017"
