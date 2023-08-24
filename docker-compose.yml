@@ -10,10 +10,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
   mudfs-server:
     container_name: mudfs-server
-    build:
-      context: ./mudfs
-      args:
-        - IMAGE_TAG=latest
+    image: angeloferaudo/devops-project:latest
     restart: always
     ports:
       - "443:443"
