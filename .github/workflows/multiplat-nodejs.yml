@@ -140,6 +140,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3.5.3
+    
     - name: Setting environment variables
       run: |
         touch .env
@@ -149,9 +150,23 @@ jobs:
         echo  MONGODB_DB=\"mudFile\" >> .env
         echo  OPEN_SSL_PATH=\"\" >> .env
         echo  NO_SIGNATURE=false >> .env
+        touch ../.my-env
+        echo  MONGODB_USER=\"${{ secrets.MONGODB_USER }}\" >> .my-env
+        echo  MONGODB_PASSWORD=\"${{ secrets.MONGODB_PASSWORD }}\" >> .my-env
+        echo  MONGODB_LOCATION=\"mongo:27017\" >> .env
+    
     - name: Testing environment variables
-      run: cat .env
-    # - name: Build Containers
-    #   run: docker-compose --env-file .my-env up
-    #   working-directory: user_policy_server
+      run: cat .env && cat ../.my-env
+    
+    - name: Building docker image
+      run: docker build -t angeloferaudo/devops-project:latest .
+    
+    - name: Deliver on dockerhub
+      run: |
+        echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u angeloferaudo --password-stdin
+        docker push angeloferaudo/devops-project:latest
+    
+    - name: Build Containers
+      run: docker-compose --env-file .my-env up
+      working-directory: user_policy_server
 
