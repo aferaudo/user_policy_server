@@ -156,7 +156,12 @@ jobs:
         echo  MONGODB_LOCATION=\"mongo:27017\" >> .env
     
     - name: Testing environment variables
-      run: cat .env && cat ../.my-env
+      run: |
+        cat .env 
+        echo "second"
+        cat ../.my-env
+        echo "pwd"
+        pwd
     
     - name: Building docker image
       run: docker build -t angeloferaudo/devops-project:latest .
@@ -168,5 +173,4 @@ jobs:
     
     - name: Build Containers
       run: docker-compose --env-file .my-env up
-      working-directory: user_policy_server
 
