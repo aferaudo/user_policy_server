@@ -10,6 +10,7 @@ RUN apk add --update openssl
 # Generating openssl keys
 WORKDIR /usr/mudfs/certs
 
+RUN openssl genrsa -out server.key
 RUN openssl req -new -key server.key -out csr.pem -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
 RUN openssl x509 -req -days 9999 -in csr.pem -signkey server.key -out server.pem
 RUN cp server.key server.key.pem 
