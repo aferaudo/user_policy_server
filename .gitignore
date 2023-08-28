@@ -13,3 +13,13 @@ mudfs/node_modules/
 mudfs/.env
 
 .my-env
+
+docs/.*
+docs/*.gem
+docs/.bundle
+docs/.ruby-version
+docs/.jekyll-cache
+docs/.sass-cache
+docs/_site
+docs/node_modules
+.DS_Store

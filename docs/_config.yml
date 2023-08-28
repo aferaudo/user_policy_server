@@ -1,0 +1,36 @@
+title: User Policy Server Docs
+description: User Policy Server Documentation
+theme: just-the-docs
+
+url: https://just-the-docs.github.io
+
+aux_links:
+  User Policy Server Repository: https://github.com/aferaudo/user_policy_server/
+
+nav_sort: case_sensitive
+
+# External navigation links
+nav_external_links:
+  - title: User Policy Server on GitHub
+    url: https://github.com/aferaudo/user_policy_server/
+    
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
+
+callouts_level: quiet # or loud
+callouts:
+  highlight:
+    color: yellow
+  important:
+    title: Important
+    color: blue
+  new:
+    title: New
+    color: green
+  note:
+    title: Note
+    color: yellow
+  warning:
+    title: Warning
+    color: red
