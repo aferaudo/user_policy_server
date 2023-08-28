@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+  mudfs-server:
+    container_name: mudfs-server
+    image: angeloferaudo/devops-project:latest
+    restart: always
+    ports:
+      - "443:443"
+    environment:
+      - MONGODB_USER=${MONGODB_USER}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_LOCATION=${MONGODB_LOCATION}
+    links:
+      - mongo
+    depends_on:
+      - mongo

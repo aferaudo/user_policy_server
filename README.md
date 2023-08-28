@@ -81,6 +81,8 @@ After that you can install all the requirements of the server by using npm:
 npm install
 `
 
+Configure a .env file for db secure connection and other settings. Please refer to the [.env.example](./mudfs/.env.example) file
+
 Try that everything works:
 `
 npm test
@@ -113,3 +115,10 @@ You can find the variant of osMUD implementation [here](https://github.com/afera
 Futhermore, [here](https://arxiv.org/pdf/2004.08003.pdf) you can find a white paper that describes in details this architecture and gives an overview of the exisisting MUD technologies. You can also find some tests on the performance of this architecture.
 
 **N.B. This implementation can be used as a traditional MUD FILE SERVER**
+
+## Containerization using Docker
+If you want to run the mudfs inside a docker container run
+```
+docker-compose --env-file .my-env up -d
+```
+In the user_policy_server directory. **You should configure the .env file before doing this.**
