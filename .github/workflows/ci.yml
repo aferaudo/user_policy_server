@@ -5,6 +5,10 @@ on:
     branches: ["master"]
   pull_request:
 
+defaults:
+  run:
+    working-directory: docs
+
 jobs:
   # Build job
   build:
