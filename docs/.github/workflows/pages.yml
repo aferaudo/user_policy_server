@@ -24,9 +24,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: docs
 
 
 jobs:
