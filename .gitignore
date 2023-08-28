@@ -14,7 +14,6 @@ mudfs/.env
 
 .my-env
 
-docs/.*
 docs/*.gem
 docs/.bundle
 docs/.ruby-version
